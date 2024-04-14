@@ -1,15 +1,27 @@
-{% if user_ip %}
+{% extends 'base.html' %}
+{% import 'macros.html' as macros %}
 
-<h1>Hello World Platzi, tu IP es {{ user_ip }}</h1>
+{% block title %}
+    {{ super() }}
+    Bienvenido
+{% endblock %}
 
-{% else %}
+{% block content %}
 
-   <a href="{{ url_for('index') }}">Ir a inicio</a>
+    {% if user_ip %}
 
-{% endif %}
+    <h1>Hello World Platzi, tu IP es {{ user_ip }}</h1>
 
-<ul>
-    {% for todo in todos %}
-        <li>{{ todo }}</li>
-    {% endfor %}
-</ul>
+    {% else %}
+
+    <a href="{{ url_for('index') }}">Ir a inicio</a>
+
+    {% endif %}
+
+    <ul>
+        {% for todo in todos %}
+            {{ macros.render_todo(todo) }}
+        {% endfor %}
+    </ul>
+
+{% endblock %}    
