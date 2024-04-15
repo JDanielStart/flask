@@ -35,15 +35,25 @@ def index():
     return response
 
 
-@app.route('/hello')
+@app.route('/hello', methods=['GET', 'POST'])
 def hello_world():
     user_ip = session.get('user_ip')
     loginForm = LoginForm()
+    username = session.get('username')
+
     context = {
         'user_ip': user_ip,
         'todos': todos,
-        'login_form': loginForm
+        'login_form': loginForm,
+        'username': username,
     }
+
+    if loginForm.validate_on_submit():
+        username = loginForm.username.data
+        session['username'] = username
+
+        return make_response(redirect('/hello'))
+
     return render_template('hello.html', **context)
 
 if __name__ == '__main__':
