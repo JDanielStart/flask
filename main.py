@@ -21,6 +21,10 @@ class LoginForm(FlaskForm):
 def not_found(error):
     return render_template('404.html', error=error)
 
+@app.errorhandler(500)
+def not_found(error):
+    return render_template('500.html', error=error)
+
 @app.route('/')
 def index():
     user_ip = request.remote_addr
