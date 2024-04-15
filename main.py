@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response, redirect, render_template, session
+from flask import Flask, flash, request, make_response, redirect, render_template, session
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
@@ -51,6 +51,8 @@ def hello_world():
     if loginForm.validate_on_submit():
         username = loginForm.username.data
         session['username'] = username
+
+        flash('Nombre de usuario registrado con éxito')
 
         return make_response(redirect('/hello'))
 
