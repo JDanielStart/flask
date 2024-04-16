@@ -37,3 +37,10 @@ class MainTest(TestCase):
         location = urlparse(response.location).path
 
         self.assertEqual(location, '/hello')
+
+    def test_auth_blueprint_exists(self):
+        self.assertIn('auth', self.app.blueprints)
+
+    def test_auth_login_get(self):
+        response = self.client.get(url_for('auth.login'))
+        self.assert200(response)
